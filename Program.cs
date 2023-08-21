@@ -16,13 +16,13 @@
 
         private static void Main(string[] args)
         {
-            Exercise1(dividend, out int divisor);
+            CalculateDivision(dividend, out int divisor);
             FindMax(array, out int maxValue);
             CalculateRectangleArea(width, height, out double square);
             Swap(firstNumber, secondNumber, out int[] swapNumbers);
             TryParseInt(inputString, out bool result);
 
-            void Exercise1(int dividend, out int divisor)
+            void CalculateDivision(int dividend, out int divisor)
             {
                 dividend = Convert.ToInt32(Console.ReadLine());
                 divisor = Convert.ToInt32(Console.ReadLine());
@@ -31,7 +31,7 @@
                     || divisor == null)
                 {
                     Console.WriteLine("Попробуй еще раз. Введите значения.");
-                    Exercise1(dividend, out divisor);
+                    CalculateDivision(dividend, out divisor);
                 }
 
                 divisor = dividend / divisor;
