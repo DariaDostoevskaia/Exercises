@@ -16,42 +16,29 @@
 
         private static void Main(string[] args)
         {
-            CalculateDivision(dividend, out int divisor);
-            FindMax(array, out int maxValue);
-            CalculateRectangleArea(width, height, out double square);
+            //    CalculateDivision(dividend, out int divisor);
+            //    FindMax(array, out int maxValue);
+            //    CalculateRectangleArea(width, height, out double square);
             Swap(firstNumber, secondNumber, out int[] swapNumbers);
-            TryParseInt(inputString, out bool result);
+            //TryParseInt(inputString, out bool result);
 
             void CalculateDivision(int dividend, out int divisor)
             {
-                dividend = Convert.ToInt32(Console.ReadLine());
-                divisor = Convert.ToInt32(Console.ReadLine());
+                var dividendNumber = int.Parse(Console.ReadLine());
+                var divisorNumber = int.Parse(Console.ReadLine());
 
-                if (dividend == null
-                    || divisor == null)
-                {
-                    Console.WriteLine("Попробуй еще раз. Введите значения.");
-                    CalculateDivision(dividend, out divisor);
-                }
-
-                divisor = dividend / divisor;
+                divisor = dividendNumber / divisorNumber;
             }
 
             void FindMax(int[] array, out int maxValue)
             {
                 Console.WriteLine("Введите количество чисел: ");
-                var arrayNumber = Convert.ToInt32(Console.ReadLine());
-
-                if (arrayNumber == null)
-                {
-                    Console.WriteLine("Введите значение еще раз!");
-                    FindMax(array, out maxValue);
-                }
+                var arrayNumber = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Введите числа: ");
                 for (int i = 0; i < arrayNumber; i++)
                 {
-                    var number = Convert.ToInt32(Console.ReadLine());
+                    var number = int.Parse(Console.ReadLine());
                     array[i] = number;
                 }
                 maxValue = array.Max();
@@ -59,48 +46,32 @@
 
             void CalculateRectangleArea(double width, double height, out double square)
             {
-                width = Convert.ToDouble(Console.ReadLine());
-                height = Convert.ToDouble(Console.ReadLine());
+                width = double.Parse(Console.ReadLine());
+                height = double.Parse(Console.ReadLine());
 
-                if (width == null
-                   || height == null)
-                {
-                    Console.WriteLine("Попробуй еще раз. Введите значения.");
-                    CalculateRectangleArea(width, height, out square);
-                }
                 square = width * height;
             }
 
             void Swap(int firstNumber, int secondNumber, out int[] swapNumbers)
             {
-                firstNumber = Convert.ToInt32(Console.ReadLine());
-                secondNumber = Convert.ToInt32(Console.ReadLine());
+                firstNumber = int.Parse(Console.ReadLine());
+                secondNumber = int.Parse(Console.ReadLine());
 
-                if (firstNumber == null
-                   || secondNumber == null)
-                {
-                    Console.WriteLine("Попробуй еще раз. Введите значения.");
-                    Swap(firstNumber, secondNumber, out swapNumbers);
-                }
+                (firstNumber, secondNumber) = (secondNumber, firstNumber);
                 swapNumbers = new int[] { firstNumber, secondNumber };
-
-                for (int i = swapNumbers.Length - 1; i >= 0; i--)
-                {
-                    Console.Write(swapNumbers[i] + " ");
-                }
             }
 
             void TryParseInt(string inputString, out bool result)
             {
-                inputString = Convert.ToString(Console.ReadLine());
+                var input = Console.ReadLine();
                 int intNumber;
 
-                if (inputString == null)
+                if (input == null)
                 {
                     Console.WriteLine("Введите значение еще раз!");
-                    TryParseInt(inputString, out result);
+                    TryParseInt(input, out result);
                 }
-                result = int.TryParse(inputString, out intNumber);
+                result = int.TryParse(input, out intNumber);
                 Console.WriteLine(result);
             }
         }
