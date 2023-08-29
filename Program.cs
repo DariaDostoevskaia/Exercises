@@ -4,35 +4,28 @@
     {
         private static void Main()
         {
-            var dividend = int.Parse(Console.ReadLine());
-            var divisorNumber = int.Parse(Console.ReadLine());
+            var dividend = 6;
+            var divisorNumber = 3;
             CalculateDivision(dividend, out int divisor);
             Console.WriteLine(divisor);
 
-            Console.WriteLine("Введите количество чисел: ");
-            var arrayNumber = int.Parse(Console.ReadLine());
-            var array = new int[arrayNumber];
-            Console.WriteLine("Введите числа: ");
-            for (int i = 0; i < arrayNumber; i++)
-            {
-                var number = int.Parse(Console.ReadLine());
-                array[i] = number;
-            }
+            var array = new int[] { 1, 9, 7, -5, 5 };
+
             FindMax(array, out int maxValue);
             Console.WriteLine(maxValue);
 
-            var width = double.Parse(Console.ReadLine());
-            var height = double.Parse(Console.ReadLine());
+            double width = 7.467;
+            double height = 8.7;
             CalculateRectangleArea(width, height, out double square);
             Console.WriteLine(square);
 
-            var firstNumber = int.Parse(Console.ReadLine());
-            var secondNumber = int.Parse(Console.ReadLine());
+            var firstNumber = 6;
+            var secondNumber = 9;
             Swap(firstNumber, secondNumber, out string swapNumbers);
             Console.WriteLine(swapNumbers);
 
-            var inputString = Console.ReadLine();
-            var resultBool = false;
+            string inputString = "fjhskdh8494";
+            bool resultBool;
             TryParseInt(inputString, out int result);
             Console.WriteLine(resultBool);
 
