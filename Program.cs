@@ -1,18 +1,16 @@
 ﻿namespace Exercises
 {
-    internal class Program
+    public static class Program
     {
-        private static void MainLinq()
+        private static void Main()
         {
-            string s = " 4 6 7 8 9 0 10 45 6 56 342 ";
-            string[] a = s.Split(new char[] { ' ' });
-            a.ToList();
-            GetEvenNumbers(a);
+            var myList = new List<int> { 1, 2, 3, 4, 5, 6 };
+            GetEvenNumbers(myList);
 
-            void GetEvenNumbers(string[] a)
+            void GetEvenNumbers(List<int> myList)
             {
-                a.Where((a, result) => result % 2 == 0);
-                Console.WriteLine(a);
+                var evenIndexes = myList.Where((num, index) => index % 2 == 0);
+                Console.WriteLine(evenIndexes);
             }
         }
     }
