@@ -27,7 +27,7 @@ namespace Exercises
 
             //Exercise 2;
 
-            List<Student> students = new List<Student>()
+            List<Student> students = new List<Student>(5)
             {
                 new Student { StudentName = "John", Age = 20 },
                 new Student { StudentName = "Alice", Age = 21 },
@@ -42,13 +42,12 @@ namespace Exercises
 
             foreach (var group in groupedStudents)
             {
-                Console.WriteLine($"Age: {group.Key}, Count: {group.Count()}");
+                Console.WriteLine($"Age: {group.Key}, Count: {group.Select(groupedStudents => students).Count()}");
             }
 
             void GetGroupStudents(IEnumerable<Student> students)
             {
-                groupedStudents = from student in students
-                                  group student by student.Age;
+                groupedStudents = students.GroupBy(student => student.Age);
             }
 
             //Exercise 3;
@@ -60,19 +59,18 @@ namespace Exercises
                 new Worker { WorkerName = "Bob", Salary = 22000 }
             };
 
-            IEnumerable<IGrouping<string, Worker>> groupedWorkers;
+            var groupedWorkers = new List<string>();
 
             GetGroupWorkers(workers);
 
-            foreach (var group in groupedWorkers)
+            foreach (var worker in groupedWorkers)
             {
-                Console.WriteLine(group.Key);
+                Console.WriteLine(worker);
             }
 
-            void GetGroupWorkers(IEnumerable<Worker> workers)
+            void GetGroupWorkers(List<Worker> workers)
             {
-                groupedWorkers = from worker in workers
-                                 group worker by worker.WorkerName;
+                groupedWorkers = workers.Select(worker => worker.WorkerName).ToList();
             }
 
             //Exercise 4;
@@ -89,7 +87,7 @@ namespace Exercises
             "Lisbon"
             };
 
-            IOrderedEnumerable<string> alphabeticallyCities;
+            List<string> alphabeticallyCities;
 
             GetCitiesAlphabetically(cities);
 
@@ -98,21 +96,19 @@ namespace Exercises
 
             void GetCitiesAlphabetically(List<string> cities)
             {
-                alphabeticallyCities = from city in cities
-                                       orderby city
-                                       select city;
+                alphabeticallyCities = (cities.OrderBy(city => city).ToList());
             }
 
             //Exercise 5;
 
             var numbers = new List<int> { 1, 2, 3, 4, 5 };
-            int sum = 0;
+            var sum = 0;
             GetSum(numbers);
             Console.WriteLine(sum);
 
             void GetSum(List<int> numbers)
             {
-                sum = numbers.Aggregate((x, y) => x + y);
+                sum = numbers.Sum();
             }
         }
     }
