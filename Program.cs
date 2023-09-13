@@ -1,4 +1,7 @@
-﻿using System.Globalization;
+﻿using System.Buffers;
+using System.Globalization;
+using static Exercises.OOP;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Exercises
 {
@@ -8,55 +11,115 @@ namespace Exercises
         {
             //Exercise 1;
 
-            //var person = new Person();
-            //person.GetSurname("Fleming");
-            //person.GetName("Lise");
-            //person.GetAge(33);
+            var person = new Person();
+            person.GetSurname("Fleming");
+            person.GetName("Lise");
+            person.GetAge(33);
 
-            //Console.WriteLine($"{person.PersonSurname} {person.PersonName}, {person.PersonAge} years old");
+            Console.WriteLine($"{person.PersonSurname} {person.PersonName}, {person.PersonAge} years old");
 
             //Exercise 2;
 
-            //var myStudent = new Student();
-            //myStudent.GetSurname("Koval");
-            //myStudent.GetName("Irina");
-            //myStudent.GetAge(19);
+            var student = new Student();
+            student.GetSurname("Koval");
+            student.GetName("Irina");
+            student.GetAge(19);
 
-            //var myTeacher = new Teacher();
-            //myTeacher.GetSurname("Ivanov");
-            //myTeacher.GetName("Ivan");
-            //myTeacher.GetAge(43);
+            var teacher = new Teacher();
+            teacher.GetSurname("Ivanov");
+            teacher.GetName("Ivan");
+            teacher.GetAge(41);
 
-            //Console.WriteLine($"{myStudent.PersonSurname} {myStudent.PersonName}," +
-            //    $" is a {nameof(Student)}, {myStudent.PersonAge} years old");
+            Console.WriteLine($"{student.PersonSurname} {student.PersonName}," +
+                $" is a {nameof(Student)}, {student.PersonAge} years old");
 
-            //Console.WriteLine($"{myTeacher.PersonSurname} {myTeacher.PersonName}," +
-            //    $" is a {nameof(Teacher)}, {myTeacher.PersonAge} years old");
+            Console.WriteLine($"{teacher.PersonSurname} {teacher.PersonName}," +
+                $" is a {nameof(Teacher)}, {teacher.PersonAge} years old");
 
             //Exercise 3;
 
-            var myPerson = new Person();
+            var person1 = new Person();
 
-            var surName = myPerson.PersonSurname;
+            var surName = person1.PersonSurname;
             surName = "Datchin";
-            myPerson.GetSurname(surName);
+            person1.GetSurname(surName);
 
-            var name = myPerson.PersonName;
+            var name = person1.PersonName;
             name = "Valery";
-            myPerson.GetName(name);
+            person1.GetName(name);
 
-            var age = myPerson.PersonAge;
+            var age = person1.PersonAge;
             age = 43;
-            myPerson.GetAge(age);
+            person1.GetAge(age);
 
-            Console.WriteLine();
+            person1.WritePersonData(surName, name, age);
+
+            //Exercise 4;
+
+            var myPerson = new Person();
+            myPerson.GetSurname("Fleming");
+            myPerson.GetName("Lise");
+            myPerson.GetAge(33);
+            ((IPrintable)myPerson).Print(myPerson.PersonSurname,
+                                       myPerson.PersonName,
+                                       myPerson.PersonAge);
+
+            var myStudent = new Student();
+            myStudent.GetSurname("Koval");
+            myStudent.GetName("Irina");
+            myStudent.GetAge(19);
+            ((IPrintable)myStudent).Print(myStudent.PersonSurname,
+                                          myStudent.PersonName,
+                                          myStudent.PersonAge);
+
+            var myTeacher = new Teacher();
+            myTeacher.GetSurname("Ivanov");
+            myTeacher.GetName("Ivan");
+            myTeacher.GetAge(41);
+            ((IPrintable)myTeacher).Print(myTeacher.PersonSurname,
+                                          myTeacher.PersonName,
+                                          myTeacher.PersonAge);
+
+            //Exercise 5;
+
+            var classroom = new Classroom();
+
+            var students = classroom._students;
+
+            students[0].GetSurname("Ivanov");
+            students[0].GetName("Ivan");
+            students[0].GetAge(20);
+            classroom.AddStudent(students[0]);
+
+            students[1].GetSurname("Vasilyev");
+            students[1].GetName("Peter");
+            students[1].GetAge(19);
+            classroom.AddStudent(students[1]);
+
+            var teachers = classroom._teachers;
+
+            teachers[0].GetSurname("Vasnetsova");
+            teachers[0].GetName("Maria");
+            teachers[0].GetAge(33);
+            classroom.AddTeacher(teachers[0]);
+
+            teachers[1].GetSurname("Losev");
+            teachers[1].GetName("Viktor");
+            teachers[1].GetAge(41);
+            classroom.AddTeacher(teachers[1]);
+
+            classroom.RemoveStudent();
+            classroom.RemoveTeacher();
+
+            classroom.ClearStudents();
+            classroom.ClearTeachers();
         }
 
-        public class Person
+        public class Person : IPrintable
         {
-            private string _personSurname;
-            private string _personName;
-            private int _personAge;
+            public string _personSurname;
+            public string _personName;
+            public int _personAge;
 
             public string PersonSurname => _personSurname;
 
@@ -79,21 +142,72 @@ namespace Exercises
                 _personAge = personAge;
             }
 
-            public void GetPersonData(string personSurname, string personName, int personAge)
+            public void WritePersonData(string personSurname, string personName, int personAge)
             {
                 _personSurname = personSurname;
                 _personName = personName;
                 _personAge = personAge;
+
+                Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
+            }
+
+            void IPrintable.Print(string surname, string name, int age)
+            {
+                _personSurname = surname;
+                _personName = name;
+                _personAge = age;
+
                 Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
             }
         }
 
-        public class Student : Person
+        public class Student : Person, IPrintable
         {
         }
 
-        public class Teacher : Person
+        public class Teacher : Person, IPrintable
         {
+        }
+
+        public class Classroom
+        {
+            public List<Student> _students = new();
+            public List<Teacher> _teachers = new();
+
+            public void AddStudent(Student student)
+            {
+                _students.Add(student);
+            }
+
+            public void RemoveStudent()
+            {
+                _students.RemoveAt(0);
+            }
+
+            public void ClearStudents()
+            {
+                _students.Clear();
+            }
+
+            public void AddTeacher(Teacher teacher)
+            {
+                _teachers.Add(teacher);
+            }
+
+            public void RemoveTeacher()
+            {
+                _teachers.RemoveAt(0);
+            }
+
+            public void ClearTeachers()
+            {
+                _teachers.Clear();
+            }
+        }
+
+        private interface IPrintable
+        {
+            void Print(string surname, string name, int age);
         }
     }
 
