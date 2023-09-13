@@ -1,4 +1,6 @@
-﻿namespace Exercises
+﻿using System.Globalization;
+
+namespace Exercises
 {
     public static class OOP
     {
@@ -6,59 +8,92 @@
         {
             //Exercise 1;
 
-            var persons = new List<Person>()
+            //var person = new Person();
+            //person.GetSurname("Fleming");
+            //person.GetName("Lise");
+            //person.GetAge(33);
+
+            //Console.WriteLine($"{person.PersonSurname} {person.PersonName}, {person.PersonAge} years old");
+
+            //Exercise 2;
+
+            //var myStudent = new Student();
+            //myStudent.GetSurname("Koval");
+            //myStudent.GetName("Irina");
+            //myStudent.GetAge(19);
+
+            //var myTeacher = new Teacher();
+            //myTeacher.GetSurname("Ivanov");
+            //myTeacher.GetName("Ivan");
+            //myTeacher.GetAge(43);
+
+            //Console.WriteLine($"{myStudent.PersonSurname} {myStudent.PersonName}," +
+            //    $" is a {nameof(Student)}, {myStudent.PersonAge} years old");
+
+            //Console.WriteLine($"{myTeacher.PersonSurname} {myTeacher.PersonName}," +
+            //    $" is a {nameof(Teacher)}, {myTeacher.PersonAge} years old");
+
+            //Exercise 3;
+
+            var myPerson = new Person();
+
+            var surName = myPerson.PersonSurname;
+            surName = "Datchin";
+            myPerson.GetSurname(surName);
+
+            var name = myPerson.PersonName;
+            name = "Valery";
+            myPerson.GetName(name);
+
+            var age = myPerson.PersonAge;
+            age = 43;
+            myPerson.GetAge(age);
+
+            Console.WriteLine();
+        }
+
+        public class Person
+        {
+            private string _personSurname;
+            private string _personName;
+            private int _personAge;
+
+            public string PersonSurname => _personSurname;
+
+            public string PersonName => _personName;
+
+            public int PersonAge => _personAge;
+
+            public void GetSurname(string personSurname)
             {
-                new Person { PersonSurname = "Fleming", PersonName = "John", PersonAge = 20 },
-                new Person { PersonSurname = "Niumatur", PersonName = "Alice", PersonAge = 21 }
-            };
-
-            GetSurnames(persons);
-            IEnumerable<IGrouping<string, Person>> personSurnames;
-
-            GetNames(persons);
-            IEnumerable<IGrouping<string, Person>> personNames;
-
-            GetAges(persons);
-            IEnumerable<IGrouping<int, Person>> ages;
-
-            GetKeys(personSurnames, personNames, ages);
-
-            void GetSurnames(List<Person> persons)
-            {
-                personSurnames = persons.GroupBy(person => person.PersonSurname);
+                _personSurname = personSurname;
             }
 
-            void GetNames(List<Person> persons)
+            public void GetName(string personName)
             {
-                personNames = persons.GroupBy(person => person.PersonName);
+                _personName = personName;
             }
 
-            void GetAges(List<Person> persons)
+            public void GetAge(int personAge)
             {
-                ages = persons.GroupBy(age => age.PersonAge);
+                _personAge = personAge;
             }
 
-            void GetKeys(IEnumerable<IGrouping<string, Person>> personSurname,
-                    IEnumerable<IGrouping<string, Person>> personName,
-                      IEnumerable<IGrouping<int, Person>> age)
+            public void GetPersonData(string personSurname, string personName, int personAge)
             {
-                foreach (var key in personSurname)
-                {
-                    Console.WriteLine(key.Key);
-                }
-                Console.WriteLine();
-
-                foreach (var key in personName)
-                {
-                    Console.WriteLine(key.Key);
-                }
-                Console.WriteLine();
-
-                foreach (var key in age)
-                {
-                    Console.WriteLine(key.Key);
-                }
+                _personSurname = personSurname;
+                _personName = personName;
+                _personAge = personAge;
+                Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
             }
+        }
+
+        public class Student : Person
+        {
+        }
+
+        public class Teacher : Person
+        {
         }
     }
 
@@ -169,28 +204,18 @@
     //                sum = numbers.Sum();
     //            }
     //        }
+    //public class Student
+    //{
+    //    public string StudentName { get; set; }
+
+    //    public int Age { get; set; }
+    //}
+
+    //public class Worker
+    //{
+    //    public string WorkerName { get; set; }
+
+    //    public int Salary { get; set; }
+    //}
     //    }
-
-    public class Student
-    {
-        public string StudentName { get; set; }
-
-        public int Age { get; set; }
-    }
-
-    public class Worker
-    {
-        public string WorkerName { get; set; }
-
-        public int Salary { get; set; }
-    }
-
-    public class Person
-    {
-        public string PersonName { get; set; }
-
-        public string PersonSurname { get; set; }
-
-        public int PersonAge { get; set; }
-    }
 }
