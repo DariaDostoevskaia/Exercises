@@ -1,6 +1,6 @@
 ﻿namespace Exercises
 {
-    public class Program
+    public class Sprites
     {
         private static void Main()
         {
@@ -66,7 +66,7 @@
             }
 
             //Exercise 5;
-            string input = "849";
+            string input = "849full";
 
             TryParseInt(input, out bool resultBool);
 
@@ -74,7 +74,7 @@
 
             void TryParseInt(string inputString, out bool resultBool)
             {
-                resultBool = int.TryParse(inputString, out int i);
+                resultBool = int.TryParse(inputString, out int _);
             }
         }
     }
