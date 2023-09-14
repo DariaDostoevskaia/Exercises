@@ -1,9 +1,4 @@
-﻿using System.Buffers;
-using System.Globalization;
-using static Exercises.OOP;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace Exercises
+﻿namespace Exercises
 {
     public static class OOP
     {
@@ -83,30 +78,21 @@ namespace Exercises
             //Exercise 5;
 
             var classroom = new Classroom();
+            var studentsList = new List<Student>(2)
+            {
+            new Student(),
+            new Student(),
+            };
+            var teachersList = new List<Teacher>(2)
+            {
+            new Teacher(),
+            new Teacher(),
+            };
+            classroom.AddStudent(studentsList[0]);
+            classroom.AddStudent(studentsList[1]);
 
-            var students = classroom._students;
-
-            students[0].GetSurname("Ivanov");
-            students[0].GetName("Ivan");
-            students[0].GetAge(20);
-            classroom.AddStudent(students[0]);
-
-            students[1].GetSurname("Vasilyev");
-            students[1].GetName("Peter");
-            students[1].GetAge(19);
-            classroom.AddStudent(students[1]);
-
-            var teachers = classroom._teachers;
-
-            teachers[0].GetSurname("Vasnetsova");
-            teachers[0].GetName("Maria");
-            teachers[0].GetAge(33);
-            classroom.AddTeacher(teachers[0]);
-
-            teachers[1].GetSurname("Losev");
-            teachers[1].GetName("Viktor");
-            teachers[1].GetAge(41);
-            classroom.AddTeacher(teachers[1]);
+            classroom.AddTeacher(teachersList[0]);
+            classroom.AddTeacher(teachersList[1]);
 
             classroom.RemoveStudent();
             classroom.RemoveTeacher();
@@ -171,8 +157,12 @@ namespace Exercises
 
         public class Classroom
         {
-            public List<Student> _students = new();
-            public List<Teacher> _teachers = new();
+            private List<Student> _students = new();
+            private List<Teacher> _teachers = new();
+
+            public List<Student> Students => _students;
+
+            public List<Teacher> Teachers => _teachers;
 
             public void AddStudent(Student student)
             {
@@ -211,125 +201,126 @@ namespace Exercises
         }
     }
 
-    //    public static class Program
-    //    {
-    //        private static void Main()
-    //        {
-    //            //Exercise 1;
+    public static class Sprites
+    {
+        private static void MainSprites()
+        {
+            //Exercise 1;
 
-    //            var myList = new List<int> { 5543210, 273, 8, 41, 87643, 6 };
-    //            IEnumerable<int> evenNumbers;
+            var myList = new List<int> { 5543210, 273, 8, 41, 87643, 6 };
+            IEnumerable<int> evenNumbers;
 
-    //            GetEvenNumbers(myList);
+            GetEvenNumbers(myList);
 
-    //            foreach (var number in evenNumbers)
-    //            {
-    //                Console.Write(number + " ");
-    //            }
+            foreach (var number in evenNumbers)
+            {
+                Console.Write(number + " ");
+            }
 
-    //            void GetEvenNumbers(List<int> myList)
-    //            {
-    //                evenNumbers = myList.Where(n => n % 2 == 0);
-    //            }
+            void GetEvenNumbers(List<int> myList)
+            {
+                evenNumbers = myList.Where(n => n % 2 == 0);
+            }
 
-    //            //Exercise 2;
+            //Exercise 2;
 
-    //            List<Student> students = new List<Student>(5)
-    //        {
-    //            new Student { StudentName = "John", Age = 20 },
-    //            new Student { StudentName = "Alice", Age = 21 },
-    //            new Student { StudentName = "Bob", Age = 22 },
-    //            new Student { StudentName = "Kate", Age = 20 },
-    //            new Student { StudentName = "Mike", Age = 21 }
-    //        };
+            List<Student> students = new List<Student>(5)
+            {
+                new Student { StudentName = "John", Age = 20 },
+                new Student { StudentName = "Alice", Age = 21 },
+                new Student { StudentName = "Bob", Age = 22 },
+                new Student { StudentName = "Kate", Age = 20 },
+                new Student { StudentName = "Mike", Age = 21 }
+            };
 
-    //            IEnumerable<IGrouping<int, Student>> groupedStudents;
+            IEnumerable<IGrouping<int, Student>> groupedStudents;
 
-    //            GetGroupStudents(students);
+            GetGroupStudents(students);
 
-    //            foreach (var group in groupedStudents)
-    //            {
-    //                Console.WriteLine($"Age: {group.Key}, Count: {group.Select(groupedStudents => students).Count()}");
-    //            }
+            foreach (var group in groupedStudents)
+            {
+                Console.WriteLine($"Age: {group.Key}, Count: {group.Select(groupedStudents => students).Count()}");
+            }
 
-    //            void GetGroupStudents(IEnumerable<Student> students)
-    //            {
-    //                groupedStudents = students.GroupBy(student => student.Age);
-    //            }
+            void GetGroupStudents(IEnumerable<Student> students)
+            {
+                groupedStudents = students.GroupBy(student => student.Age);
+            }
 
-    //            //Exercise 3;
+            //Exercise 3;
 
-    //            List<Worker> workers = new List<Worker>()
-    //        {
-    //            new Worker { WorkerName = "John", Salary = 20000 },
-    //            new Worker { WorkerName = "Alice", Salary = 21000 },
-    //            new Worker { WorkerName = "Bob", Salary = 22000 }
-    //        };
+            List<Worker> workers = new List<Worker>()
+            {
+                new Worker { WorkerName = "John", Salary = 20000 },
+                new Worker { WorkerName = "Alice", Salary = 21000 },
+                new Worker { WorkerName = "Bob", Salary = 22000 }
+            };
 
-    //            var groupedWorkers = new List<string>();
+            var groupedWorkers = new List<string>();
 
-    //            GetGroupWorkers(workers);
+            GetGroupWorkers(workers);
 
-    //            foreach (var worker in groupedWorkers)
-    //            {
-    //                Console.WriteLine(worker);
-    //            }
+            foreach (var worker in groupedWorkers)
+            {
+                Console.WriteLine(worker);
+            }
 
-    //            void GetGroupWorkers(List<Worker> workers)
-    //            {
-    //                groupedWorkers = workers.Select(worker => worker.WorkerName).ToList();
-    //            }
+            void GetGroupWorkers(List<Worker> workers)
+            {
+                groupedWorkers = workers.Select(worker => worker.WorkerName).ToList();
+            }
 
-    //            //Exercise 4;
+            //Exercise 4;
 
-    //            var cities = new List<string>()
-    //        {
-    //        "New York",
-    //        "Moscow",
-    //        "Cheboksary",
-    //        "Baku",
-    //        "Madrid",
-    //        "Paris",
-    //        "Astana",
-    //        "Lisbon"
-    //        };
+            var cities = new List<string>()
+            {
+            "New York",
+            "Moscow",
+            "Cheboksary",
+            "Baku",
+            "Madrid",
+            "Paris",
+            "Astana",
+            "Lisbon"
+            };
 
-    //            List<string> alphabeticallyCities;
+            List<string> alphabeticallyCities;
 
-    //            GetCitiesAlphabetically(cities);
+            GetCitiesAlphabetically(cities);
 
-    //            foreach (var city in alphabeticallyCities)
-    //                Console.WriteLine(city);
+            foreach (var city in alphabeticallyCities)
+                Console.WriteLine(city);
 
-    //            void GetCitiesAlphabetically(List<string> cities)
-    //            {
-    //                alphabeticallyCities = (cities.OrderBy(city => city).ToList());
-    //            }
+            void GetCitiesAlphabetically(List<string> cities)
+            {
+                alphabeticallyCities = (cities.OrderBy(city => city).ToList());
+            }
 
-    //            //Exercise 5;
+            //Exercise 5;
 
-    //            var numbers = new List<int> { 1, 2, 3, 4, 5 };
-    //            var sum = 0;
-    //            GetSum(numbers);
-    //            Console.WriteLine(sum);
+            var numbers = new List<int> { 1, 2, 3, 4, 5 };
+            var sum = 0;
+            GetSum(numbers);
+            Console.WriteLine(sum);
 
-    //            void GetSum(List<int> numbers)
-    //            {
-    //                sum = numbers.Sum();
-    //            }
-    //        }
-    //public class Student
-    //{
-    //    public string StudentName { get; set; }
+            void GetSum(List<int> numbers)
+            {
+                sum = numbers.Sum();
+            }
+        }
 
-    //    public int Age { get; set; }
-    //}
+        public class Student
+        {
+            public string StudentName { get; set; }
 
-    //public class Worker
-    //{
-    //    public string WorkerName { get; set; }
+            public int Age { get; set; }
+        }
 
-    //    public int Salary { get; set; }
-    //}
-    //    }
+        public class Worker
+        {
+            public string WorkerName { get; set; }
+
+            public int Salary { get; set; }
+        }
+    }
 }
