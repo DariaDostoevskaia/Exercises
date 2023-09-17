@@ -1,4 +1,6 @@
-﻿namespace Exercises
+﻿using System.Diagnostics;
+
+namespace Exercises
 {
     public class Sprites
     {
@@ -66,7 +68,7 @@
             }
 
             //Exercise 5;
-            string input = "849full";
+            string input = "849hghf";
 
             TryParseInt(input, out bool resultBool);
 
@@ -74,7 +76,12 @@
 
             void TryParseInt(string inputString, out bool resultBool)
             {
-                resultBool = int.TryParse(inputString, out int _);
+                var isValid = int.TryParse(inputString, out var result);
+
+                if (isValid)
+                    resultBool = isValid;
+                else
+                    resultBool = isValid;
             }
         }
     }
