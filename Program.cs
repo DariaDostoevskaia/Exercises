@@ -68,20 +68,16 @@ namespace Exercises
             }
 
             //Exercise 5;
-            string input = "849hghf";
+            string input = "849";
 
-            TryParseInt(input, out bool resultBool);
+            if (TryParseToInt(input, out int result))
+                Console.WriteLine(result);
+            else
+                Console.WriteLine("Error!");
 
-            Console.WriteLine(resultBool);
-
-            void TryParseInt(string inputString, out bool resultBool)
+            bool TryParseToInt(string inputString, out int result)
             {
-                var isValid = int.TryParse(inputString, out var result);
-
-                if (isValid)
-                    resultBool = isValid;
-                else
-                    resultBool = isValid;
+                return int.TryParse(inputString, out result);
             }
         }
     }
