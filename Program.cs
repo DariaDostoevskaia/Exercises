@@ -1,8 +1,55 @@
 ﻿namespace Exercises
 {
-    public static class ExercisesOOP
+    public static class ExercisesDictionary
     {
         private static void Main()
+        {
+            //Exercise1();
+            Exercise2();
+
+            void Exercise1()
+            {
+                Console.WriteLine("Exercise 1.");
+
+                var employees = new Dictionary<int, Students>
+                 {
+                { 1, new Students(4, "John") },
+                { 2, new Students(5, "Henry") }
+                  };
+                foreach (KeyValuePair<int, Students> pair in employees)
+                {
+                    Console.WriteLine($"Student {pair.Value.Name}, estimation: {pair.Value.AverageRating}.");
+                }
+            }
+            void Exercise2()
+            {
+                var englishDictionary = new Dictionary<string, string>();
+                var franchDictionary = new Dictionary<string, string>();
+            }
+        }
+    }
+}
+
+namespace Exercises
+{
+    public class Students
+    {
+        public int AverageRating { get; }
+        public string Name { get; }
+
+        public Students(int averageRating, string name)
+        {
+            AverageRating = averageRating;
+            Name = name;
+        }
+    }
+}
+
+namespace Exercises
+{
+    public static class ExercisesOOP
+    {
+        private static void MainOOP()
         {
             //Exercise 1;
             Console.WriteLine("Exercise 1.");
@@ -253,7 +300,7 @@ namespace Exercises
 
 namespace Exercises.Sprites
 {
-    public static class Sprites
+    public static class ExercisesSprites
     {
         private static void MainSprites()
         {
@@ -326,14 +373,14 @@ namespace Exercises.Sprites
 
             var cities = new List<string>()
                       {
-                     "New York",
-                    "Moscow",
-                         "Cheboksary",
-                      "Baku",
-                      "Madrid",
-                     "Paris",
-                          "Astana",
-                       "Lisbon"
+                "New York",
+                "Moscow",
+                "Cheboksary",
+                "Baku",
+                "Madrid",
+                "Paris",
+                "Astana",
+                "Lisbon"
                    };
 
             List<string> alphabeticallyCities;
@@ -345,7 +392,9 @@ namespace Exercises.Sprites
 
             void GetCitiesAlphabetically(List<string> cities)
             {
-                alphabeticallyCities = (cities.OrderBy(city => city).ToList());
+                alphabeticallyCities = cities
+                    .OrderBy(city => city)
+                    .ToList();
             }
 
             //Exercise 5;
