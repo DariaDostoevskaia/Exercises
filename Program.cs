@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Exercises
+﻿namespace Exercises
 {
     public class Sprites
     {
@@ -8,9 +6,9 @@ namespace Exercises
         {
             //Exercise 1;
             var divisible = 7;
-            var b = 3;
+            var divider = 3;
 
-            Divide(divisible, b, out double[] remainder);
+            Divide(divisible, divider, out double[] remainder);
 
             Console.WriteLine(remainder[0]);
             Console.WriteLine(remainder[1]);
