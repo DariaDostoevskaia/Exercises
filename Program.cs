@@ -1,300 +1,330 @@
-﻿using Exercises.Exercises.Interfaces;
+﻿namespace Exercises
+{
+    public static class ExercisesOOP
+    {
+        private static void Main()
+        {
+            //Exercise 1;
+            Console.WriteLine("Exercise 1.");
+
+            var person = new Person();
+            person.SetSurname("Fleming");
+            person.SetName("Lise");
+            person.SetAge(33);
+
+            Console.WriteLine($"{person.GetSurname()} " +
+                $"{person.GetName()}, " +
+                $"{person.GetAge()}");
+
+            //Exercise 2;
+            Console.WriteLine("Exercise 2.");
+
+            var student = new Student();
+            student.SetSurname("Koval");
+            student.SetName("Irina");
+            student.SetAge(19);
+
+            student.SetStudentAbility("musical ear");
+            student.SetStudentAssesment(5);
+
+            Console.WriteLine($"Student - {student.PersonSurname}" +
+                $" {student.PersonName}," +
+                $" {student.PersonAge} years old.");
+            Console.WriteLine($"Ability: {student.StudentAbility}. Assesment: {student.StudentAssesment}.");
+
+            var teacher = new Teacher();
+            teacher.SetSurname("Ivanov");
+            teacher.SetName("Ivan");
+            teacher.SetAge(41);
+
+            teacher.SetTeacherTemperament("sanguine");
+            teacher.SetTeacherSubject("Mathematicks");
+
+            Console.WriteLine($"Teacher - {teacher.PersonSurname} " +
+                $"{teacher.PersonName}, " +
+                $"{teacher.PersonAge} years old. ");
+            Console.WriteLine($"Temperament: {teacher.TeacherTemperament}. Subject: {teacher.TeacherSubject}.");
+
+            //Exercise 3;
+            Console.WriteLine("Exercise 3.");
+
+            var personSecond = new Person();
+            personSecond.PersonSurname = "Datchin";
+            personSecond.PersonName = "Valery";
+            personSecond.PersonAge = 43;
+
+            Console.WriteLine($"{personSecond.GetSurname()} {personSecond.GetName()}," +
+            $" {personSecond.GetAge()} y.o.");
+
+            ////Exercise 4;
+            Console.WriteLine("Exercise 4.");
+
+            var myPerson = new Person();
+            myPerson.SetSurname("Fleming");
+            myPerson.SetName("Lise");
+            myPerson.SetAge(33);
+            myPerson.Print();
+
+            var myStudent = new Student();
+            myStudent.SetSurname("Koval");
+            myStudent.SetName("Irina");
+            myStudent.SetAge(19);
+            myStudent.Print();
+
+            var myTeacher = new Teacher();
+            myTeacher.SetSurname("Ivanov");
+            myTeacher.SetName("Ivan");
+            myTeacher.SetAge(41);
+            myTeacher.Print();
+
+            ////Exercise 5;
+            Console.WriteLine("Exercise 5.");
+
+            var classroom = new Classroom();
+            classroom.AddPersons();
+            classroom.Print();
+            classroom.RemovePersons();
+            classroom.ClearPersons();
+        }
+    }
+}
 
 namespace Exercises
 {
-    namespace Exercises.ExercisesOop
+    public class Person : IPrintable
     {
-        public static class ExercisesOOP
+        private string _personSurname;
+        private string _personName;
+        private int _personAge;
+
+        public string PersonSurname
         {
-            private static void Main()
+            set { SetSurname(_personSurname = value); }
+            get { return GetSurname(); }
+        }
+
+        public string PersonName
+        {
+            set { SetName(_personName = value); }
+            get { return GetName(); }
+        }
+
+        public int PersonAge
+        {
+            set
             {
-                //Exercise 1;
-
-                var person = new Person.Person();
-                person.GetSurname("Fleming");
-                person.GetName("Lise");
-                person.GetAge(33);
-
-                Console.WriteLine($"{person.PersonSurname} {person.PersonName}, {person.PersonAge} years old");
-
-                //Exercise 2;
-
-                var student = new Student.Student();
-                student.GetSurname("Koval");
-                student.GetName("Irina");
-                student.GetAge(19);
-
-                var teacher = new Teacher.Teacher();
-                teacher.GetSurname("Ivanov");
-                teacher.GetName("Ivan");
-                teacher.GetAge(41);
-
-                Console.WriteLine($"{student.PersonSurname} {student.PersonName}," +
-                    $" is a {nameof(Student)}, {student.PersonAge} years old");
-
-                Console.WriteLine($"{teacher.PersonSurname} {teacher.PersonName}," +
-                    $" is a {nameof(Teacher)}, {teacher.PersonAge} years old");
-
-                //Exercise 3;
-
-                var person1 = new Person.Person();
-
-                var surName = person1.PersonSurname;
-                surName = "Datchin";
-                person1.GetSurname(surName);
-
-                var name = person1.PersonName;
-                name = "Valery";
-                person1.GetName(name);
-
-                var age = person1.PersonAge;
-                age = 43;
-                person1.GetAge(age);
-
-                person1.WritePersonData(surName, name, age);
-
-                //Exercise 4;
-
-                var myPerson = new Person.Person();
-                myPerson.GetSurname("Fleming");
-                myPerson.GetName("Lise");
-                myPerson.GetAge(33);
-                myPerson.Print(myPerson.PersonSurname,
-                                           myPerson.PersonName,
-                                           myPerson.PersonAge);
-
-                var myStudent = new Student.Student();
-                myStudent.GetSurname("Koval");
-                myStudent.GetName("Irina");
-                myStudent.GetAge(19);
-                myStudent.Print(myStudent.PersonSurname,
-                                              myStudent.PersonName,
-                                              myStudent.PersonAge);
-
-                var myTeacher = new Teacher.Teacher();
-                myTeacher.GetSurname("Ivanov");
-                myTeacher.GetName("Ivan");
-                myTeacher.GetAge(41);
-                myTeacher.Print(myTeacher.PersonSurname,
-                                              myTeacher.PersonName,
-                                              myTeacher.PersonAge);
-
-                //Exercise 5;
-
-                var classroom = new Classroom.Classroom();
-                var studentsList = new List<Student.Student>(2)
-                 {
-                   new Student.Student(),
-                 new Student.Student(),
-                   };
-                var teachersList = new List<Teacher.Teacher>(2)
-                  {
-               new Teacher.Teacher(),
-                new Teacher.Teacher(),
-                  };
-                classroom.AddStudent(studentsList[0]);
-                classroom.AddStudent(studentsList[1]);
-
-                classroom.AddTeacher(teachersList[0]);
-                classroom.AddTeacher(teachersList[1]);
-
-                classroom.RemoveStudent();
-                classroom.RemoveTeacher();
-
-                classroom.ClearStudents();
-                classroom.ClearTeachers();
+                SetAge(_personAge = value);
+            }
+            get
+            {
+                return GetAge();
             }
         }
-    }
 
-    namespace Exercises.Person
-    {
-        public class Person : IPrintable
+        public void SetSurname(string personSurname)
         {
-            public string _personSurname;
-            public string _personName;
-            public int _personAge;
+            _personSurname = personSurname;
+        }
 
-            public string PersonSurname => _personSurname;
+        public void SetName(string personName)
+        {
+            _personName = personName;
+        }
 
-            public string PersonName => _personName;
+        public void SetAge(int personAge)
+        {
+            _personAge = personAge;
+        }
 
-            public int PersonAge => _personAge;
+        public void WritePersonData()
+        {
+            Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
+        }
 
-            public void GetSurname(string personSurname)
-            {
-                _personSurname = personSurname;
-            }
+        public void Print()
+        {
+            Console.WriteLine($"{_personSurname} {_personName}, {_personAge} y.o.");
+        }
 
-            public void GetName(string personName)
-            {
-                _personName = personName;
-            }
+        public string GetSurname()
+        {
+            return _personSurname;
+        }
 
-            public void GetAge(int personAge)
-            {
-                _personAge = personAge;
-            }
+        public string GetName()
+        {
+            return _personName;
+        }
 
-            public void WritePersonData(string personSurname, string personName, int personAge)
-            {
-                _personSurname = personSurname;
-                _personName = personName;
-                _personAge = personAge;
-
-                Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
-            }
-
-            public void Print(string surname, string name, int age)
-            {
-                _personSurname = surname;
-                _personName = name;
-                _personAge = age;
-
-                Console.WriteLine($"{_personSurname} {_personName}, {_personAge}");
-            }
+        public int GetAge()
+        {
+            return _personAge;
         }
     }
+}
 
-    namespace Exercises.Student
+namespace Exercises
+{
+    public class Student : Person, IPrintable
     {
-        public class Student : Person.Person, IPrintable
+        private string _studentAbility;
+        private int _studentAssesment;
+
+        public string StudentAbility => _studentAbility;
+
+        public int StudentAssesment => _studentAssesment;
+
+        public void SetStudentAbility(string studentAbility)
         {
+            _studentAbility = studentAbility;
+        }
+
+        public void SetStudentAssesment(int assesment)
+        {
+            _studentAssesment = assesment;
         }
     }
+}
 
-    namespace Exercises.Teacher
+namespace Exercises
+{
+    public class Teacher : Person, IPrintable
     {
-        public class Teacher : Person.Person, IPrintable
+        private string _teacherTemperament;
+        private string _teacherSubject;
+
+        public string TeacherTemperament => _teacherTemperament;
+
+        public string TeacherSubject => _teacherSubject;
+
+        public void SetTeacherTemperament(string teacherTemperament)
         {
+            _teacherTemperament = teacherTemperament;
+        }
+
+        public void SetTeacherSubject(string subject)
+        {
+            _teacherSubject = subject;
         }
     }
+}
 
-    namespace Exercises.Classroom
+namespace Exercises
+{
+    public class Classroom : IPrintable
     {
-        public class Classroom
+        private List<Person> _persons = new List<Person>();
+        private Student _student;
+        private Teacher _teacher;
+
+        public void AddPersons()
         {
-            private List<Student.Student> _students = new();
-            private List<Teacher.Teacher> _teachers = new();
+            _persons.Add(_teacher);
+            _persons.Add(_student);
+        }
 
-            public List<Student.Student> Students => _students;
-
-            public List<Teacher.Teacher> Teachers => _teachers;
-
-            public void AddStudent(Student.Student student)
+        public void RemovePersons()
+        {
+            for (int i = 0; i < _persons.Count; i++)
             {
-                _students.Add(student);
-            }
-
-            public void RemoveStudent()
-            {
-                _students.RemoveAt(0);
-            }
-
-            public void ClearStudents()
-            {
-                _students.Clear();
-            }
-
-            public void AddTeacher(Teacher.Teacher teacher)
-            {
-                _teachers.Add(teacher);
-            }
-
-            public void RemoveTeacher()
-            {
-                _teachers.RemoveAt(0);
-            }
-
-            public void ClearTeachers()
-            {
-                _teachers.Clear();
+                _persons.RemoveAt(i);
             }
         }
-    }
 
-    namespace Exercises.Interfaces
-    {
-        public interface IPrintable
+        public void ClearPersons()
         {
-            void Print(string surname, string name, int age);
+            _persons.Clear();
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"{_persons.Count}");
         }
     }
+}
 
-    namespace Exercises.Sprites
+namespace Exercises
+{
+    public interface IPrintable
     {
-        public static class Sprites
+        public void Print();
+    }
+}
+
+namespace Exercises.Sprites
+{
+    public static class Sprites
+    {
+        private static void MainSprites()
         {
-            private static void MainSprites()
+            //Exercise 1;
+
+            var myList = new List<int> { 5543210, 273, 8, 41, 87643, 6 };
+            IEnumerable<int> evenNumbers;
+
+            GetEvenNumbers(myList);
+
+            foreach (var number in evenNumbers)
             {
-                //Exercise 1;
+                Console.Write(number + " ");
+            }
 
-                var myList = new List<int> { 5543210, 273, 8, 41, 87643, 6 };
-                IEnumerable<int> evenNumbers;
-
-                GetEvenNumbers(myList);
-
-                foreach (var number in evenNumbers)
-                {
-                    Console.Write(number + " ");
-                }
-
-                void GetEvenNumbers(List<int> myList)
-                {
-                    evenNumbers = myList.Where(n => n % 2 == 0);
-                }
-
-                //Exercise 2;
-
-                List<StudentSprites.Student> students = new List<StudentSprites.Student>(5)
+            void GetEvenNumbers(List<int> myList)
             {
-                new StudentSprites.Student { StudentName = "John", Age = 20 },
-                new StudentSprites.Student { StudentName = "Alice", Age = 21 },
-                new StudentSprites.Student { StudentName = "Bob", Age = 22 },
-                new StudentSprites.Student { StudentName = "Kate", Age = 20 },
-                new StudentSprites.Student { StudentName = "Mike", Age = 21 }
+                evenNumbers = myList.Where(n => n % 2 == 0);
+            }
+
+            //Exercise 2;
+
+            List<Student> students = new List<Student>(5)
+            {
+                new Student { StudentName = "John", Age = 20 },
+                new Student { StudentName = "Alice", Age = 21 },
+                new Student { StudentName = "Bob", Age = 22 },
+                new Student { StudentName = "Kate", Age = 20 },
+                new Student { StudentName = "Mike", Age = 21 }
             };
 
-                IEnumerable<IGrouping<int, StudentSprites.Student>> groupedStudents;
+            IEnumerable<IGrouping<int, Student>> groupedStudents;
 
-                GetGroupStudents(students);
+            GetGroupStudents(students);
 
-                foreach (var group in groupedStudents)
-                {
-                    Console.WriteLine($"Age: {group.Key}, Count: {group.Select(groupedStudents => students).Count()}");
-                }
-
-                void GetGroupStudents(IEnumerable<StudentSprites.Student> students)
-                {
-                    groupedStudents = students.GroupBy(student => student.Age);
-                }
-
-                //Exercise 3;
-
-                List<Worker.Worker> workers = new List<Worker.Worker>()
+            foreach (var group in groupedStudents)
             {
-                new Worker.Worker { WorkerName = "John", Salary = 20000 },
-                new Worker.Worker { WorkerName = "Alice", Salary = 21000 },
-                new Worker.Worker  { WorkerName = "Bob", Salary = 22000 }
+                Console.WriteLine($"Age: {group.Key}, Count: {group.Select(groupedStudents => students).Count()}");
+            }
+
+            void GetGroupStudents(IEnumerable<Student> students)
+            {
+                groupedStudents = students.GroupBy(student => student.Age);
+            }
+
+            //Exercise 3;
+
+            List<Worker> workers = new List<Worker>()
+            {
+                new Worker{ WorkerName = "John", Salary = 20000 },
+                new Worker { WorkerName = "Alice", Salary = 21000 },
+                new Worker  { WorkerName = "Bob", Salary = 22000 }
             };
 
-                var groupedWorkers = new List<string>();
+            var groupedWorkers = new List<string>();
 
-                GetGroupWorkers(workers);
+            GetGroupWorkers(workers);
 
-                foreach (var worker in groupedWorkers)
-                {
-                    Console.WriteLine(worker);
-                }
+            foreach (var worker in groupedWorkers)
+            {
+                Console.WriteLine(worker);
+            }
 
-                void GetGroupWorkers(List<Worker.Worker> workers)
-                {
-                    groupedWorkers = workers.Select(worker => worker.WorkerName).ToList();
-                }
+            void GetGroupWorkers(List<Worker> workers)
+            {
+                groupedWorkers = workers.Select(worker => worker.WorkerName).ToList();
+            }
 
-                //Exercise 4;
+            //Exercise 4;
 
-                var cities = new List<string>()
+            var cities = new List<string>()
                       {
                      "New York",
                     "Moscow",
@@ -306,50 +336,49 @@ namespace Exercises
                        "Lisbon"
                    };
 
-                List<string> alphabeticallyCities;
+            List<string> alphabeticallyCities;
 
-                GetCitiesAlphabetically(cities);
+            GetCitiesAlphabetically(cities);
 
-                foreach (var city in alphabeticallyCities)
-                    Console.WriteLine(city);
+            foreach (var city in alphabeticallyCities)
+                Console.WriteLine(city);
 
-                void GetCitiesAlphabetically(List<string> cities)
-                {
-                    alphabeticallyCities = (cities.OrderBy(city => city).ToList());
-                }
+            void GetCitiesAlphabetically(List<string> cities)
+            {
+                alphabeticallyCities = (cities.OrderBy(city => city).ToList());
+            }
 
-                //Exercise 5;
+            //Exercise 5;
 
-                var numbers = new List<int> { 1, 2, 3, 4, 5 };
-                var sum = 0;
-                GetSum(numbers);
-                Console.WriteLine(sum);
+            var numbers = new List<int> { 1, 2, 3, 4, 5 };
+            var sum = 0;
+            GetSum(numbers);
+            Console.WriteLine(sum);
 
-                void GetSum(List<int> numbers)
-                {
-                    sum = numbers.Sum();
-                }
+            void GetSum(List<int> numbers)
+            {
+                sum = numbers.Sum();
             }
         }
     }
+}
 
-    namespace Exercises.StudentSprites
+namespace Exercises.Sprites
+{
+    public class Student
     {
-        public class Student
-        {
-            public string StudentName { get; set; }
+        public string StudentName { get; set; }
 
-            public int Age { get; set; }
-        }
+        public int Age { get; set; }
     }
+}
 
-    namespace Exercises.Worker
+namespace Exercises.Sprites
+{
+    public class Worker
     {
-        public class Worker
-        {
-            public string WorkerName { get; set; }
+        public string WorkerName { get; set; }
 
-            public int Salary { get; set; }
-        }
+        public int Salary { get; set; }
     }
 }
