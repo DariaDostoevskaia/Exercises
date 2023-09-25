@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="OOP\" />
+    <ProjectReference Include="..\SpritesOut\SpriteOut.csproj" />
   </ItemGroup>
 
 </Project>
