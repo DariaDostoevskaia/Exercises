@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteOut", "..\SpritesOut\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dictionary", "..\Dictionary\Dictionary.csproj", "{5078FA3D-FB79-45B9-ACA7-7B043D65723C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tic-Tac-Toe", "..\Tic-Tac-Toe\Tic-Tac-Toe.csproj", "{69B8AB4B-28EA-438F-91F8-7F0D6DCE63CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5078FA3D-FB79-45B9-ACA7-7B043D65723C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5078FA3D-FB79-45B9-ACA7-7B043D65723C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5078FA3D-FB79-45B9-ACA7-7B043D65723C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69B8AB4B-28EA-438F-91F8-7F0D6DCE63CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69B8AB4B-28EA-438F-91F8-7F0D6DCE63CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69B8AB4B-28EA-438F-91F8-7F0D6DCE63CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69B8AB4B-28EA-438F-91F8-7F0D6DCE63CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
