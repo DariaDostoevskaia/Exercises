@@ -2,154 +2,174 @@
 {
     public class Program
     {
-        private enum Player
+        private static Dictionary<string, string> board;
+        private static string currentPlayer;
+
+        private static void Main(string[] args)
         {
-            X,
-            O
-        }
+            // Инициализация игрового поля и переменных
+            board = new Dictionary<string, string>();
 
-        private const int ROWS = 3;
-        private const int COLUMNS = 3;
+            currentPlayer = "X";
 
-        private static readonly char[,] board = new char[ROWS, COLUMNS];
-
-        private static Player currentPlayer = Player.X;
-
-        private static void Main()
-        {
             InitializeBoard();
 
-            while (true)
+            // Основной цикл игры
+            bool gameOver = false;
+            while (!gameOver)
             {
+                // Вывод игрового поля
                 PrintBoard();
-                Console.WriteLine($"Player {currentPlayer}, enter your move (row column): ");
 
-                int row = Convert.ToInt32(Console.ReadLine());
-                int column = Convert.ToInt32(Console.ReadLine());
+                // Получение хода от текущего игрока
+                bool validMove = false;
 
-                if (MakeMove(row, column))
+                string move = "";
+
+                while (!validMove)
                 {
-                    if (CheckForWin())
+                    Console.WriteLine("Ход игрока " + currentPlayer);
+                    Console.WriteLine("Введите координаты клетки в формате 'ряд столбец':");
+
+                    move = Console.ReadLine();
+
+                    validMove = IsValidMove(move);
+
+                    if (!validMove)
                     {
-                        PrintBoard();
-                        Console.WriteLine($"Player {currentPlayer} wins!");
-                        break;
+                        Console.WriteLine("Некорректный ход! Попробуйте еще раз.");
                     }
-                    if (IsBoardFull())
-                    {
-                        PrintBoard();
-                        Console.WriteLine("It's a draw!");
-                        break;
-                    }
-                    TogglePlayer();
                 }
-                else
-                {
-                    Console.WriteLine("Invalid move, try again.");
-                }
+                // Обновление игрового поля
+                board[move] = currentPlayer;
+
+                // Проверка на победу
+
+                if (CheckWin())
+                    gameOver = true;
+
+                if (CheckDraw())
+                    gameOver = true;
+
+                // Смена текущего игрока
+                SwitchPlayer();
             }
-            Console.ReadKey();
+
+            // Вывод окончательного игрового поля
+            PrintBoard();
+
+            Console.WriteLine("Игра окончена!");
         }
 
+        // Инициализация игрового поля
         private static void InitializeBoard()
         {
-            // Initialize the board with empty spaces
-            for (int r = 0; r < ROWS; r++)
+            for (int i = 0; i < 3; i++)
             {
-                for (int c = 0; c < COLUMNS; c++)
+                for (int j = 0; j < 3; j++)
                 {
-                    board[r, c] = ' ';
+                    board.Add(i + " " + j, " ");
                 }
             }
         }
 
+        private static void PrintWinner()
+        {
+            Console.WriteLine("Игрок " + currentPlayer + " победил!");
+        }
+
+        private static void PrintNonWinner()
+        {
+            Console.WriteLine("Игра окончена вничью!");
+        }
+
+        // Вывод игрового поля на экран
         private static void PrintBoard()
         {
-            // Print the current state of the board
-            for (int r = 0; r < ROWS; r++)
+            Console.Clear();
+            Console.WriteLine("   0  1  2");
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("-------------");
-                for (int c = 0; c < COLUMNS; c++)
+                Console.Write(i + " ");
+                for (int j = 0; j < 3; j++)
                 {
-                    Console.Write("| ");
-                    Console.Write(board[r, c]);
-                    Console.Write(" ");
+                    Console.Write("[" + board[i + " " + j] + "]");
                 }
-                Console.WriteLine("|");
+                Console.WriteLine();
             }
-            Console.WriteLine("-------------");
+            Console.WriteLine();
         }
 
-        private static bool MakeMove(int row, int column)
+        // Проверка на корректность хода
+        private static bool IsValidMove(string move)
         {
-            if (row >= 0
-                && row < ROWS
-                && column >= 0
-                && column < COLUMNS
-                && board[row, column] == ' ')
+            if (!board.ContainsKey(move))
             {
-                board[row, column] = currentPlayer == Player.X
-                    ? 'X'
-                    : 'O';
-                return true;
+                return false;
             }
-            return false;
+            if (board[move] != " ")
+            {
+                return false;
+            }
+            return true;
         }
 
-        private static bool CheckForWin()
+        // Проверка на победу
+        private static bool CheckWin()
         {
-            // Check rows
-            for (int r = 0; r < ROWS; r++)
+            // Проверка по строкам и столбцам
+            for (int i = 0; i < 3; i++)
             {
-                if (board[r, 0] == board[r, 1]
-                    && board[r, 1] == board[r, 2]
-                    && board[r, 0] != ' ')
-                    return true;
-            }
-
-            // Check columns
-            for (int c = 0; c < COLUMNS; c++)
-            {
-                if (board[0, c] == board[1, c]
-                    && board[1, c] == board[2, c]
-                    && board[0, c] != ' ')
-                    return true;
-            }
-
-            // Check diagonals
-            if (board[0, 0] == board[1, 1]
-                && board[1, 1] == board[2, 2]
-                && board[0, 0] != ' ')
-                return true;
-
-            if (board[2, 0] == board[1, 1]
-                && board[1, 1] == board[0, 2]
-                && board[2, 0] != ' ')
-                return true;
-
-            return false;
-        }
-
-        private static bool IsBoardFull()
-        {
-            for (int r = 0; r < ROWS; r++)
-            {
-                for (int c = 0; c < COLUMNS; c++)
+                if (board[i + " 0"] == currentPlayer && board[i + " 1"] == currentPlayer && board[i + " 2"] == currentPlayer)
                 {
-                    if (board[r, c] == ' ')
-                    {
-                        return false;
-                    }
+                    return true;
+                }
+                if (board["0 " + i] == currentPlayer && board["1 " + i] == currentPlayer && board["2 " + i] == currentPlayer)
+                {
+                    return true;
+                }
+            }
+
+            // Проверка по диагоналям
+            if (board["0 0"] == currentPlayer && board["1 1"] == currentPlayer && board["2 2"] == currentPlayer)
+            {
+                return true;
+            }
+            if (board["0 2"] == currentPlayer && board["1 1"] == currentPlayer && board["2 0"] == currentPlayer)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // Проверка на ничью
+        private static bool CheckDraw()
+        {
+            foreach (KeyValuePair<string, string> cell in board)
+            {
+                if (cell.Value == " ")
+                {
+                    return false;
                 }
             }
             return true;
         }
 
-        private static void TogglePlayer()
+        // Смена текущего игрока
+        private static void SwitchPlayer()
         {
-            currentPlayer = currentPlayer == Player.X
-                ? Player.O
-                : Player.X;
+            currentPlayer = currentPlayer == "X"
+                ? "O"
+                : "X";
+            //if (currentPlayer == "X")
+            //{
+            //    currentPlayer = "O";
+            //}
+            //else
+            //{
+            //    currentPlayer = "X";
+            //}
         }
     }
 }
