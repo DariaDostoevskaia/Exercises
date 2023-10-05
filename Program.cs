@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using static Exercises.Program;
-
-namespace Exercises
+﻿namespace Exercises
 {
     public static class Program
     {
