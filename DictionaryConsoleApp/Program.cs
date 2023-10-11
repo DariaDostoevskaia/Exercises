@@ -14,21 +14,22 @@
         {
             Console.WriteLine("Exercise 1.");
 
-            var employees = new Dictionary<int, Student>
-                 {
-                { 1, new Student(4, "John") },
-                { 2, new Student(5, "Henry") }
-                  };
-            foreach (KeyValuePair<int, Student> pair in employees)
+            var employees = new Dictionary<Student, int>
             {
-                Console.WriteLine($"Student {pair.Value.Name}, estimation: {pair.Value.AverageRating}.");
+                { new Student(4, "John"), 1},
+                { new Student(5, "Henry"), 2 }
+            };
+
+            foreach (KeyValuePair<Student, int> pair in employees)
+            {
+                Console.WriteLine($"Student {pair.Key.Name}, estimation: {pair.Key.AverageRating}.");
             }
         }
 
         public static void Exercise2()
         {
             var dictionaryEnglishFranch = new Dictionary<string, string>(10)
-                {
+            {
                     { "book", "livre" },
                     { "mouse", "souris" },
                     { "dictionary", "dictionnaire" },
@@ -39,23 +40,41 @@
                     { "game", "jeu" },
                     { "flower", "fleur" },
                     { "candles", "bougies" }
-                };
-            string targetValue = dictionaryEnglishFranch.FirstOrDefault(pair => pair.Key == "music").Value;
+            };
 
-            if (targetValue != null)
+            var input = Console.ReadLine();
+
+            if (input == null)
             {
-                Console.WriteLine(targetValue);
+                Console.WriteLine("Enter the word again");
+                Exercise2();
             }
-            else
+
+            Console.WriteLine(GetTranslation(dictionaryEnglishFranch, input));
+
+            string GetTranslation(Dictionary<string, string> dictionaryEnglishFranch, string input)
             {
-                Console.WriteLine("Key not found");
+                string targetValue = dictionaryEnglishFranch.FirstOrDefault(pair => pair.Key == input).Value;
+                var output = "";
+
+                if (targetValue != null)
+                {
+                    output = targetValue;
+                    return output;
+                }
+                else
+                {
+                    Console.WriteLine("Key not found. Enter the word again");
+                    Exercise2();
+                    return output;
+                }
             }
         }
 
         public static void Exercise3()
         {
             var listOfProducts = new Dictionary<string, int>(10)
-                {
+            {
                     { "book", 500 },
                     { "mouse", 4300 },
                     { "dictionary", 3500 },
@@ -66,7 +85,7 @@
                     { "game", 400},
                     { "flower", 2000 },
                     { "candles", 400}
-                };
+            };
 
             var keysToRemove = new HashSet<string>() { "book", "keys" };
 
@@ -79,22 +98,21 @@
             var newValue = 700;
 
             AddOrUpdate(listOfProducts, key, newValue);
+
             foreach (var product in listOfProducts)
             {
                 Console.WriteLine($"{product.Key}: {product.Value}");
             }
-            void AddOrUpdate(Dictionary<string, int> dic, string key, int newValue)
+
+            void AddOrUpdate(Dictionary<string, int> dictionary, string key, int newValue)
             {
-                int val;
-                if (dic.TryGetValue(key, out val))
+                if (dictionary.TryGetValue(key, out var value))
                 {
-                    // yay, value exists!
-                    dic[key] = val + newValue;
+                    dictionary[key] = value + newValue;
                 }
                 else
                 {
-                    // darn, lets add the value
-                    dic.Add(key, newValue);
+                    dictionary.Remove(key);
                 }
             }
         }
@@ -102,7 +120,7 @@
         public static void Exercise4()
         {
             var listOfProductsSold = new Dictionary<string, int>(10)
-                {
+            {
                     { "book", 4 },
                     { "mouse", 6 },
                     { "dictionary", 3 },
@@ -113,13 +131,11 @@
                     { "game", 7 },
                     { "flower", 30 },
                     { "candles", 14 }
-                };
-            var sum = 0;
-            foreach (var soldProduct in listOfProductsSold)
-            {
-                sum += soldProduct.Value;
-            }
-            Console.WriteLine(sum);
+            };
+
+            Console.WriteLine(listOfProductsSold
+                .Skip(1)
+                .Sum(soldProduct => soldProduct.Value));
         }
     }
 
