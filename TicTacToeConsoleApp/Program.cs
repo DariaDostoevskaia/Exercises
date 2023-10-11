@@ -45,11 +45,12 @@
 
                 // Проверка на победу
 
-                if (CheckWin())
+                if (CheckWin()
+                    || CheckDraw())
+                {
                     gameOver = true;
-
-                if (CheckDraw())
-                    gameOver = true;
+                    continue;
+                }
 
                 // Смена текущего игрока
                 SwitchPlayer();
@@ -57,6 +58,11 @@
 
             // Вывод окончательного игрового поля
             PrintBoard();
+
+            if (CheckWin())
+                PrintWinner();
+            if (CheckDraw())
+                PrintNonWinner();
 
             Console.WriteLine("Игра окончена!");
         }
@@ -162,14 +168,6 @@
             currentPlayer = currentPlayer == "X"
                 ? "O"
                 : "X";
-            //if (currentPlayer == "X")
-            //{
-            //    currentPlayer = "O";
-            //}
-            //else
-            //{
-            //    currentPlayer = "X";
-            //}
         }
     }
 }
