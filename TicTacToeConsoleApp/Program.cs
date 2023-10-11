@@ -45,8 +45,8 @@
 
                 // Проверка на победу
 
-                if (CheckWin()
-                    || CheckDraw())
+                if (IsWinResult()
+                    || IsDrawResult())
                 {
                     gameOver = true;
                     continue;
@@ -59,9 +59,10 @@
             // Вывод окончательного игрового поля
             PrintBoard();
 
-            if (CheckWin())
+            if (IsWinResult())
                 PrintWinner();
-            if (CheckDraw())
+
+            if (IsDrawResult())
                 PrintNonWinner();
 
             Console.WriteLine("Игра окончена!");
@@ -121,7 +122,7 @@
         }
 
         // Проверка на победу
-        private static bool CheckWin()
+        private static bool IsWinResult()
         {
             // Проверка по строкам и столбцам
             for (int i = 0; i < 3; i++)
@@ -150,7 +151,7 @@
         }
 
         // Проверка на ничью
-        private static bool CheckDraw()
+        private static bool IsDrawResult()
         {
             foreach (KeyValuePair<string, string> cell in board)
             {
