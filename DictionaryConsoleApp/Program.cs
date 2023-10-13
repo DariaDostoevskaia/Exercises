@@ -4,10 +4,10 @@
     {
         private static void Main()
         {
-            Exercise1();
+            //Exercise1();
             Exercise2();
-            Exercise3();
-            Exercise4();
+            //Exercise3();
+            //Exercise4();
         }
 
         public static void Exercise1()
@@ -44,30 +44,21 @@
 
             var input = Console.ReadLine();
 
-            if (input == null)
-            {
-                Console.WriteLine("Enter the word again");
-                Exercise2();
-            }
-
             Console.WriteLine(GetTranslation(dictionaryEnglishFranch, input));
 
             string GetTranslation(Dictionary<string, string> dictionaryEnglishFranch, string input)
             {
-                string targetValue = dictionaryEnglishFranch.FirstOrDefault(pair => pair.Key == input).Value;
-                var output = "";
-
-                if (targetValue != null)
+                if (dictionaryEnglishFranch.ContainsKey(input))
                 {
-                    output = targetValue;
-                    return output;
+                    string translation = dictionaryEnglishFranch[input];
+                    return translation;
                 }
                 else
                 {
-                    Console.WriteLine("Key not found. Enter the word again");
+                    Console.WriteLine("Enter another word");
                     Exercise2();
-                    return output;
                 }
+                return "";
             }
         }
 
@@ -87,15 +78,12 @@
                     { "candles", 400}
             };
 
-            var keysToRemove = new HashSet<string>() { "book", "keys" };
+            var keysToRemove = new HashSet<string>() { "flower", "candles" };
 
-            var filteredDict = listOfProducts
-                .Where(kvp => !keysToRemove
-                .Contains(kvp.Key))
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            Remove(keysToRemove, listOfProducts);
 
             var key = "game";
-            var newValue = 700;
+            var newValue = 230;
 
             AddOrUpdate(listOfProducts, key, newValue);
 
@@ -112,7 +100,20 @@
                 }
                 else
                 {
-                    dictionary.Remove(key);
+                    dictionary.Add(key, newValue);
+                }
+            }
+
+            void Remove(HashSet<string> keysToRemove, Dictionary<string, int> listOfProducts)
+            {
+                var filteredDictionary = listOfProducts
+                    .Where(pair => keysToRemove
+                    .Contains(pair.Key))
+                    .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+                foreach (var product in filteredDictionary)
+                {
+                    listOfProducts.Remove(product.Key);
                 }
             }
         }
@@ -133,9 +134,7 @@
                     { "candles", 14 }
             };
 
-            Console.WriteLine(listOfProductsSold
-                .Skip(1)
-                .Sum(soldProduct => soldProduct.Value));
+            Console.WriteLine(listOfProductsSold.Sum(soldProduct => soldProduct.Value));
         }
     }
 
