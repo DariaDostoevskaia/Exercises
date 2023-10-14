@@ -94,7 +94,7 @@ namespace OOPConsoleApp
 {
     public class Classroom : IPrintable
     {
-        private List<Person> _persons = new();
+        private readonly List<Person> _persons = new();
         private Person _person;
 
         public Classroom(string surname, string name, int age)
@@ -115,9 +115,8 @@ namespace OOPConsoleApp
 
         public bool IsValid(string surname, string name, int age)
         {
-            if (surname != null
-                && name != null
-                && age != null)
+            if (!string.IsNullOrEmpty(surname)
+                && !string.IsNullOrEmpty(name))
                 return true;
 
             return false;
@@ -153,11 +152,6 @@ namespace OOPConsoleApp
         private string _personSurname;
         private string _personName;
         private int _personAge;
-        public string PersonSurname => _personSurname;
-
-        public string PersonName => _personName;
-
-        public int PersonAge => _personAge;
 
         public Person(string personSurname, string personName, int personAge)
         {
@@ -165,6 +159,12 @@ namespace OOPConsoleApp
             _personName = personName;
             _personAge = personAge;
         }
+
+        public string PersonSurname => _personSurname;
+
+        public string PersonName => _personName;
+
+        public int PersonAge => _personAge;
 
         public void SetSurname(string personSurname)
         {
