@@ -4,10 +4,10 @@
     {
         private static void Main()
         {
-            //Exercise1();
+            Exercise1();
             Exercise2();
-            //Exercise3();
-            //Exercise4();
+            Exercise3();
+            Exercise4();
         }
 
         public static void Exercise1()
@@ -44,13 +44,20 @@
 
             var input = Console.ReadLine();
 
-            Console.WriteLine(GetTranslation(dictionaryEnglishFranch, input));
+            if (!string.IsNullOrEmpty(input))
+            {
+                Console.WriteLine("Error. Repeat the input again.");
+                Exercise2();
+            }
 
-            string GetTranslation(Dictionary<string, string> dictionaryEnglishFranch, string input)
+            Console.WriteLine(GetTranslation(input));
+
+            string GetTranslation(string input)
             {
                 if (dictionaryEnglishFranch.ContainsKey(input))
                 {
-                    string translation = dictionaryEnglishFranch[input];
+                    string translation;
+                    dictionaryEnglishFranch.TryGetValue(input, out translation);
                     return translation;
                 }
                 else
