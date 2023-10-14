@@ -2,33 +2,31 @@
 {
     public class Program
     {
-        private static Dictionary<string, string> board;
-        private static string currentPlayer;
+        private static Dictionary<int, char> _board = new();
+
+        private static char _currentPlayer;
+
+        private static int _cellsNumber = 3;
 
         private static void Main(string[] args)
         {
-            // Инициализация игрового поля и переменных
-            board = new Dictionary<string, string>();
-
-            currentPlayer = "X";
+            _currentPlayer = 'X';
 
             InitializeBoard();
 
-            // Основной цикл игры
             bool gameOver = false;
+
             while (!gameOver)
             {
-                // Вывод игрового поля
                 PrintBoard();
 
-                // Получение хода от текущего игрока
                 bool validMove = false;
 
                 string move = "";
 
                 while (!validMove)
                 {
-                    Console.WriteLine("Ход игрока " + currentPlayer);
+                    Console.WriteLine("Ход игрока " + _currentPlayer);
                     Console.WriteLine("Введите координаты клетки в формате 'ряд столбец':");
 
                     move = Console.ReadLine();
@@ -40,23 +38,18 @@
                         Console.WriteLine("Некорректный ход! Попробуйте еще раз.");
                     }
                 }
-                // Обновление игрового поля
-                board[move] = currentPlayer;
 
-                // Проверка на победу
+                _board[move] = _currentPlayer;
 
                 if (IsWinResult()
                     || IsDrawResult())
                 {
-                    gameOver = true;
-                    continue;
+                    break;
                 }
 
-                // Смена текущего игрока
                 SwitchPlayer();
             }
 
-            // Вывод окончательного игрового поля
             PrintBoard();
 
             if (IsWinResult())
@@ -68,21 +61,20 @@
             Console.WriteLine("Игра окончена!");
         }
 
-        // Инициализация игрового поля
         private static void InitializeBoard()
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _cellsNumber; i++)
             {
-                for (int j = 0; j < 3; j++)
+                for (int j = 0; j < _cellsNumber; j++)
                 {
-                    board.Add(i + " " + j, " ");
+                    _board.Add(i + " " + j, " ");
                 }
             }
         }
 
         private static void PrintWinner()
         {
-            Console.WriteLine("Игрок " + currentPlayer + " победил!");
+            Console.WriteLine("Игрок " + _currentPlayer + " победил!");
         }
 
         private static void PrintNonWinner()
@@ -90,59 +82,69 @@
             Console.WriteLine("Игра окончена вничью!");
         }
 
-        // Вывод игрового поля на экран
         private static void PrintBoard()
         {
             Console.Clear();
             Console.WriteLine("   0  1  2");
-            for (int i = 0; i < 3; i++)
+
+            for (int i = 0; i < _cellsNumber; i++)
             {
                 Console.Write(i + " ");
-                for (int j = 0; j < 3; j++)
+
+                for (int j = 0; j < _cellsNumber; j++)
                 {
-                    Console.Write("[" + board[i + " " + j] + "]");
+                    Console.Write("[" + _board[i + " " + j] + "]");
                 }
+
                 Console.WriteLine();
             }
+
             Console.WriteLine();
         }
 
-        // Проверка на корректность хода
         private static bool IsValidMove(string move)
         {
-            if (!board.ContainsKey(move))
+            if (!_board.ContainsKey(move))
             {
                 return false;
             }
-            if (board[move] != " ")
+
+            if (_board[move] != " ")
             {
                 return false;
             }
             return true;
         }
 
-        // Проверка на победу
         private static bool IsWinResult()
         {
-            // Проверка по строкам и столбцам
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _cellsNumber; i++)
             {
-                if (board[i + " 0"] == currentPlayer && board[i + " 1"] == currentPlayer && board[i + " 2"] == currentPlayer)
+                if (_board[i + " 0"] == _currentPlayer
+                    && _board[i + " 1"] == _currentPlayer
+                    && _board[i + " 2"] == _currentPlayer)
                 {
                     return true;
                 }
-                if (board["0 " + i] == currentPlayer && board["1 " + i] == currentPlayer && board["2 " + i] == currentPlayer)
+
+                if (_board["0 " + i] == _currentPlayer
+                    && _board["1 " + i] == _currentPlayer
+                    && _board["2 " + i] == _currentPlayer)
                 {
                     return true;
                 }
             }
 
-            // Проверка по диагоналям
-            if (board["0 0"] == currentPlayer && board["1 1"] == currentPlayer && board["2 2"] == currentPlayer)
+            if (_board["0 0"] == _currentPlayer
+                && _board["1 1"] == _currentPlayer
+                && _board["2 2"] == _currentPlayer)
             {
                 return true;
             }
-            if (board["0 2"] == currentPlayer && board["1 1"] == currentPlayer && board["2 0"] == currentPlayer)
+
+            if (_board["0 2"] == _currentPlayer
+                && _board["1 1"] == _currentPlayer
+                && _board["2 0"] == _currentPlayer)
             {
                 return true;
             }
@@ -150,10 +152,9 @@
             return false;
         }
 
-        // Проверка на ничью
         private static bool IsDrawResult()
         {
-            foreach (KeyValuePair<string, string> cell in board)
+            foreach (KeyValuePair<string, string> cell in _board)
             {
                 if (cell.Value == " ")
                 {
@@ -163,12 +164,14 @@
             return true;
         }
 
-        // Смена текущего игрока
         private static void SwitchPlayer()
         {
-            currentPlayer = currentPlayer == "X"
-                ? "O"
-                : "X";
+            var player1 = 'X';
+            var player2 = 'O';
+
+            _currentPlayer = _currentPlayer == player1
+                ? player2
+                : player1;
         }
     }
 }
