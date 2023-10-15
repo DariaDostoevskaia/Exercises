@@ -2,15 +2,16 @@
 {
     public class Program
     {
-        private static Dictionary<int, char> _board = new();
+        private static Dictionary<string, string> _board = new();
 
-        private static char _currentPlayer;
+        private static Dictionary<int, string> _players;
+        private static string _currentPlayer;
 
         private static int _cellsNumber = 3;
 
         private static void Main(string[] args)
         {
-            _currentPlayer = 'X';
+            _currentPlayer = "X";
 
             InitializeBoard();
 
@@ -166,12 +167,12 @@
 
         private static void SwitchPlayer()
         {
-            var player1 = 'X';
-            var player2 = 'O';
+            _players[0] = "X";
+            _players[1] = "O";
 
-            _currentPlayer = _currentPlayer == player1
-                ? player2
-                : player1;
+            _currentPlayer = _currentPlayer == _players[0]
+                ? _players[1]
+                : _players[0];
         }
     }
 }
