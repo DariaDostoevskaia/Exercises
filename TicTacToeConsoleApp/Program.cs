@@ -155,9 +155,10 @@
 
         private static bool IsDrawResult()
         {
+            var non = string.Empty;
             foreach (KeyValuePair<string, string> cell in _board)
             {
-                if (cell.Value == " ")
+                if (!string.IsNullOrWhiteSpace(cell.Value))
                 {
                     return false;
                 }
@@ -170,7 +171,7 @@
             _players[0] = "X";
             _players[1] = "O";
 
-            _currentPlayer = _currentPlayer == _players[0]
+            _currentPlayer = _currentPlayer == "X"
                 ? _players[1]
                 : _players[0];
         }
