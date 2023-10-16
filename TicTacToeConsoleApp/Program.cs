@@ -2,16 +2,21 @@
 {
     public class Program
     {
-        private static Dictionary<string, string> _board = new();
+        private static readonly Dictionary<string, string> _board = new();
 
-        private static Dictionary<int, string> _players;
+        private static Dictionary<int, string> _players = new Dictionary<int, string>
+        {
+                { 1, "Х" },
+                { 2, "О" }
+        };
+
         private static string _currentPlayer;
 
-        private static int _cellsNumber = 3;
+        private static readonly int _cellsNumber = 3;
 
-        private static void Main(string[] args)
+        private static void Main()
         {
-            _currentPlayer = "X";
+            _currentPlayer = _players[1];
 
             InitializeBoard();
 
@@ -155,7 +160,6 @@
 
         private static bool IsDrawResult()
         {
-            var non = string.Empty;
             foreach (KeyValuePair<string, string> cell in _board)
             {
                 if (!string.IsNullOrWhiteSpace(cell.Value))
@@ -168,12 +172,9 @@
 
         private static void SwitchPlayer()
         {
-            _players[0] = "X";
-            _players[1] = "O";
-
-            _currentPlayer = _currentPlayer == "X"
-                ? _players[1]
-                : _players[0];
+            _currentPlayer = _currentPlayer == _players[1]
+              ? _players[2]
+              : _players[1];
         }
     }
 }
