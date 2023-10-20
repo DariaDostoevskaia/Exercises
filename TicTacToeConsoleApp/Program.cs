@@ -17,12 +17,10 @@
         private static void Main()
         {
             _currentPlayer = _players[1];
-
             InitializeBoard();
+            bool playGame = true;
 
-            bool gameOver = false;
-
-            while (!gameOver)
+            while (playGame)
             {
                 PrintBoard();
 
@@ -172,9 +170,12 @@
 
         private static void SwitchPlayer()
         {
-            _currentPlayer = _currentPlayer == _players[1]
-              ? _players[2]
-              : _players[1];
+            //_currentPlayer = _currentPlayer == _players[1]
+            //  ? _players[2]
+            //  : _players[1];
+
+            int currentIndex = 1;
+            currentIndex = ++currentIndex % _players.Count;
         }
     }
 }
