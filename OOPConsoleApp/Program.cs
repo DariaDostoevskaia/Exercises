@@ -72,20 +72,25 @@ namespace OOPConsoleApp
             {
                 Console.WriteLine("Exercise 5.");
 
-                var student1 = new Student("Pupkin", "Vasiliy", 20);
-                var student2 = new Student("Vasilyeva", "Iren", 18);
+                var persons = new List<Person>
+                {
+                    { new Student("Pupkin", "Vasiliy", 20)},
+                    { new Student("Vasilyeva", "Iren", 18)},
+                    { new Teacher("Kirkorov", "Petya", 46)},
+                };
 
-                var teacher1 = new Teacher("Kirkorov", "Petya", 46);
-
-                var classroom = new Classroom(student1);
-
-                classroom.AddPerson(teacher1);
-                classroom.AddPerson(student2);
+                var classroom = new Classroom();
+                foreach (var person in persons)
+                {
+                    classroom.AddPerson(person);
+                }
 
                 classroom.Print();
 
-                classroom.RemovePerson(student1);
-                classroom.RemovePerson(teacher1);
+                foreach (var person in persons)
+                {
+                    classroom.RemovePerson(person);
+                }
 
                 classroom.ClearPersons();
             }
@@ -97,18 +102,7 @@ namespace OOPConsoleApp
 {
     public class Classroom : IPrintable
     {
-        private Dictionary<int, Person> _persons = new();
-        private Person _person;
-
-        public Classroom(Person person)
-        {
-            if (person is Student
-                || person is Teacher)
-            {
-                _person = person;
-                AddPerson(_person);
-            }
-        }
+        private readonly Dictionary<int, Person> _persons = new();
 
         public void AddPerson(Person person)
         {
@@ -118,7 +112,6 @@ namespace OOPConsoleApp
 
             if (IsValid(surname, name, age))
             {
-                person = new Person(surname, name, age);
                 _persons.Add(_persons.Count + 1, person);
             }
             else
@@ -128,7 +121,8 @@ namespace OOPConsoleApp
         public bool IsValid(string surname, string name, int age)
         {
             if (!string.IsNullOrEmpty(surname)
-                && !string.IsNullOrEmpty(name))
+                && !string.IsNullOrEmpty(name)
+                && age > 0)
                 return true;
 
             return false;
@@ -232,14 +226,14 @@ namespace OOPConsoleApp
         private string _studentAbility;
         private int _studentAssesment;
 
+        public string StudentAbility => _studentAbility;
+
+        public int StudentAssesment => _studentAssesment;
+
         public Student(string personSurname, string personName, int personAge)
             : base(personSurname, personName, personAge)
         {
         }
-
-        public string StudentAbility => _studentAbility;
-
-        public int StudentAssesment => _studentAssesment;
 
         public void SetStudentAbility(string studentAbility)
         {
