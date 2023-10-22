@@ -6,8 +6,8 @@
 
         private static Dictionary<int, string> _players = new Dictionary<int, string>
         {
-                { 1, "Х" },
-                { 2, "О" }
+                { 0, "Х" },
+                { 1, "О" }
         };
 
         private static string _currentPlayer;
@@ -16,11 +16,10 @@
 
         private static void Main()
         {
-            _currentPlayer = _players[1];
+            _currentPlayer = "X";
             InitializeBoard();
-            bool playGame = true;
 
-            while (playGame)
+            while (true)
             {
                 PrintBoard();
 
@@ -99,10 +98,8 @@
                 {
                     Console.Write("[" + _board[i + " " + j] + "]");
                 }
-
                 Console.WriteLine();
             }
-
             Console.WriteLine();
         }
 
@@ -170,12 +167,14 @@
 
         private static void SwitchPlayer()
         {
-            //_currentPlayer = _currentPlayer == _players[1]
-            //  ? _players[2]
-            //  : _players[1];
+            //int currentIndex;
+            //currentIndex = ++currentIndex % _players.Count;
 
-            int currentIndex = 1;
-            currentIndex = ++currentIndex % _players.Count;
+            //if (currentIndex == 0)
+            //    _currentPlayer = _players[currentIndex];
+
+            //if (currentIndex == 1)
+            //    _currentPlayer = _players[currentIndex];
         }
     }
 }
