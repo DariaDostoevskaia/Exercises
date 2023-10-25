@@ -158,6 +158,29 @@ namespace OOPConsoleApp
 
 namespace OOPConsoleApp
 {
+    public class PersonRepository
+    {
+        private readonly List<Person> _persons = new();
+
+        public void Add(Person person)
+        {
+            _persons.Add(person);
+        }
+
+        public void Remove(Person person)
+        {
+            _persons.Remove(person);
+        }
+
+        public IEnumerable<Person> GetAll()
+        {
+            return _persons;
+        }
+    }
+}
+
+namespace OOPConsoleApp
+{
     public class Person : IPrintable
     {
         private string _personSurname;
