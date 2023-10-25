@@ -4,7 +4,7 @@
     {
         private static readonly Dictionary<string, string> _board = new();
 
-        private static Dictionary<int, string> _players = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> _players = new()
         {
                 { 0, "Х" },
                 { 1, "О" }
@@ -44,24 +44,26 @@
 
                 _board[move] = _currentPlayer;
 
-                if (IsWinResult()
-                    || IsDrawResult())
+                if (IsWinResult())
                 {
-                    break;
+                    PrintBoard();
+                    PrintWinner();
+
+                    Console.WriteLine("Игра окончена!");
+
+                    return;
                 }
+                if (IsDrawResult())
+                {
+                    PrintBoard();
+                    PrintNonWinner();
 
-                SwitchPlayer();
+                    Console.WriteLine("Игра окончена!");
+                    return;
+                }
+                else
+                    SwitchPlayer();
             }
-
-            PrintBoard();
-
-            if (IsWinResult())
-                PrintWinner();
-
-            if (IsDrawResult())
-                PrintNonWinner();
-
-            Console.WriteLine("Игра окончена!");
         }
 
         private static void InitializeBoard()
@@ -157,7 +159,7 @@
         {
             foreach (KeyValuePair<string, string> cell in _board)
             {
-                if (!string.IsNullOrWhiteSpace(cell.Value))
+                if (string.IsNullOrWhiteSpace(cell.Value))
                 {
                     return false;
                 }
@@ -167,14 +169,19 @@
 
         private static void SwitchPlayer()
         {
-            //int currentIndex;
-            //currentIndex = ++currentIndex % _players.Count;
+            var currentIndex = 0;
+            foreach (KeyValuePair<int, string> player in _players)
+            {
+                if (player.Value == _currentPlayer)
+                {
+                    break;
+                }
+                currentIndex++;
+            }
 
-            //if (currentIndex == 0)
-            //    _currentPlayer = _players[currentIndex];
+            currentIndex = (currentIndex + 1) % _players.Count;
 
-            //if (currentIndex == 1)
-            //    _currentPlayer = _players[currentIndex];
+            _currentPlayer = _players[currentIndex];
         }
     }
 }
