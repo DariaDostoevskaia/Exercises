@@ -173,16 +173,9 @@ namespace OOPConsoleApp
         public Person Get(string id)
         {
             var thisPerson = id;
-            Person personNotFound = null;
 
-            foreach (var person in _persons)
-            {
-                var isThisPerson = _persons.Where(id => thisPerson == person.PersonName
-                && thisPerson == person.PersonSurname);
-                return person;
-            }
-
-            return personNotFound;
+            return _persons.First(person => thisPerson == person.PersonName
+            && thisPerson == person.PersonSurname);
         }
 
         public IEnumerable<Person> GetAll()
