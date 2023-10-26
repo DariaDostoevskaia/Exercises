@@ -120,12 +120,9 @@ namespace OOPConsoleApp
 
         public bool IsValid(string surname, string name, int age)
         {
-            if (!string.IsNullOrEmpty(surname)
-                && !string.IsNullOrEmpty(name)
-                && age > 0)
-                return true;
-
-            return false;
+            return !string.IsNullOrEmpty(surname)
+                  && !string.IsNullOrEmpty(name)
+                  && age > 0;
         }
 
         public void RemovePerson(Person person)
@@ -167,9 +164,25 @@ namespace OOPConsoleApp
             _persons.Add(person);
         }
 
-        public void Remove(Person person)
+        public void Remove(string id)
         {
+            var person = Get(id);
             _persons.Remove(person);
+        }
+
+        public Person Get(string id)
+        {
+            var thisPerson = id;
+            Person personNotFound = null;
+
+            foreach (var person in _persons)
+            {
+                var isThisPerson = _persons.Where(id => thisPerson == person.PersonName
+                && thisPerson == person.PersonSurname);
+                return person;
+            }
+
+            return personNotFound;
         }
 
         public IEnumerable<Person> GetAll()
@@ -187,18 +200,18 @@ namespace OOPConsoleApp
         private string _personName;
         private int _personAge;
 
+        public string PersonSurname => _personSurname;
+
+        public string PersonName => _personName;
+
+        public int PersonAge => _personAge;
+
         public Person(string personSurname, string personName, int personAge)
         {
             _personSurname = personSurname;
             _personName = personName;
             _personAge = personAge;
         }
-
-        public string PersonSurname => _personSurname;
-
-        public string PersonName => _personName;
-
-        public int PersonAge => _personAge;
 
         public void SetSurname(string personSurname)
         {
@@ -277,14 +290,14 @@ namespace OOPConsoleApp
         private string _teacherTemperament;
         private string _teacherSubject;
 
+        public string TeacherTemperament => _teacherTemperament;
+
+        public string TeacherSubject => _teacherSubject;
+
         public Teacher(string personSurname, string personName, int personAge)
             : base(personSurname, personName, personAge)
         {
         }
-
-        public string TeacherTemperament => _teacherTemperament;
-
-        public string TeacherSubject => _teacherSubject;
 
         public void SetTeacherTemperament(string teacherTemperament)
         {
