@@ -4,19 +4,14 @@
     {
         private static readonly Dictionary<string, string> _board = new();
 
-        private static readonly Dictionary<int, string> _players = new()
-        {
-                { 0, "Х" },
-                { 1, "О" }
-        };
+        private static readonly string[] _players = { "X", "O" };
 
-        private static string _currentPlayer;
+        private static int _currentIndex = 0;
 
         private static readonly int _cellsNumber = 3;
 
         private static void Main()
         {
-            _currentPlayer = "X";
             InitializeBoard();
 
             while (true)
@@ -29,7 +24,7 @@
 
                 while (!validMove)
                 {
-                    Console.WriteLine("Ход игрока " + _currentPlayer);
+                    Console.WriteLine("Ход игрока " + _players[_currentIndex]);
                     Console.WriteLine("Введите координаты клетки в формате 'ряд столбец':");
 
                     move = Console.ReadLine();
@@ -42,7 +37,7 @@
                     }
                 }
 
-                _board[move] = _currentPlayer;
+                _board[move] = _players[_currentIndex];
 
                 if (IsWinResult())
                 {
@@ -79,7 +74,7 @@
 
         private static void PrintWinner()
         {
-            Console.WriteLine("Игрок " + _currentPlayer + " победил!");
+            Console.WriteLine("Игрок " + _players[_currentIndex] + " победил!");
         }
 
         private static void PrintNonWinner()
@@ -112,7 +107,7 @@
                 return false;
             }
 
-            if (_board[move] != " ")
+            if (!string.IsNullOrWhiteSpace(_board[move]))
             {
                 return false;
             }
@@ -123,31 +118,31 @@
         {
             for (int i = 0; i < _cellsNumber; i++)
             {
-                if (_board[i + " 0"] == _currentPlayer
-                    && _board[i + " 1"] == _currentPlayer
-                    && _board[i + " 2"] == _currentPlayer)
+                if (_board[i + " 0"] == _players[_currentIndex]
+                    && _board[i + " 1"] == _players[_currentIndex]
+                    && _board[i + " 2"] == _players[_currentIndex])
                 {
                     return true;
                 }
 
-                if (_board["0 " + i] == _currentPlayer
-                    && _board["1 " + i] == _currentPlayer
-                    && _board["2 " + i] == _currentPlayer)
+                if (_board["0 " + i] == _players[_currentIndex]
+                    && _board["1 " + i] == _players[_currentIndex]
+                    && _board["2 " + i] == _players[_currentIndex])
                 {
                     return true;
                 }
             }
 
-            if (_board["0 0"] == _currentPlayer
-                && _board["1 1"] == _currentPlayer
-                && _board["2 2"] == _currentPlayer)
+            if (_board["0 0"] == _players[_currentIndex]
+                && _board["1 1"] == _players[_currentIndex]
+                && _board["2 2"] == _players[_currentIndex])
             {
                 return true;
             }
 
-            if (_board["0 2"] == _currentPlayer
-                && _board["1 1"] == _currentPlayer
-                && _board["2 0"] == _currentPlayer)
+            if (_board["0 2"] == _players[_currentIndex]
+                && _board["1 1"] == _players[_currentIndex]
+                && _board["2 0"] == _players[_currentIndex])
             {
                 return true;
             }
@@ -169,19 +164,7 @@
 
         private static void SwitchPlayer()
         {
-            var currentIndex = 0;
-            foreach (KeyValuePair<int, string> player in _players)
-            {
-                if (player.Value == _currentPlayer)
-                {
-                    break;
-                }
-                currentIndex++;
-            }
-
-            currentIndex = (currentIndex + 1) % _players.Count;
-
-            _currentPlayer = _players[currentIndex];
+            _currentIndex = ++_currentIndex % _players.Length;
         }
     }
 }
