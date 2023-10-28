@@ -80,19 +80,15 @@ namespace OOPConsoleApp
                 };
 
                 var classroom = new Classroom();
-                foreach (var person in persons)
-                {
-                    classroom.AddPerson(person);
-                }
 
-                classroom.Print();
+                var personRepository = new PersonRepository();
 
                 foreach (var person in persons)
                 {
-                    classroom.RemovePerson(person);
+                    personRepository.AddPerson(person);
                 }
 
-                classroom.ClearPersons();
+                personRepository.RemovePerson("Vasilyeva Iren");
             }
         }
     }
@@ -102,52 +98,14 @@ namespace OOPConsoleApp
 {
     public class Classroom : IPrintable
     {
-        private readonly Dictionary<int, Person> _persons = new();
-
-        public void AddPerson(Person person)
-        {
-            var surname = person.PersonSurname;
-            var name = person.PersonName;
-            var age = person.PersonAge;
-
-            if (IsValid(surname, name, age))
-            {
-                _persons.Add(_persons.Count + 1, person);
-            }
-            else
-                throw new Exception("A person's data cannot be null!");
-        }
-
-        public bool IsValid(string surname, string name, int age)
-        {
-            return !string.IsNullOrEmpty(surname)
-                  && !string.IsNullOrEmpty(name)
-                  && age > 0;
-        }
-
-        public void RemovePerson(Person person)
-        {
-            foreach (var thisPerson in _persons)
-            {
-                if (thisPerson.Value == person)
-                {
-                    _persons.Remove(thisPerson.Key);
-                    break;
-                }
-            }
-        }
-
-        public void ClearPersons()
-        {
-            _persons.Clear();
-        }
+        private List<Person> _persons = new();
 
         public void Print()
         {
             foreach (var person in _persons)
             {
-                Console.WriteLine($"{person.Value.PersonSurname} {person.Value.PersonName}, " +
-                    $"{person.Value.PersonAge}");
+                Console.WriteLine($"{person.PersonSurname} {person.PersonName}, " +
+                    $"{person.PersonAge}");
             }
         }
     }
@@ -157,14 +115,26 @@ namespace OOPConsoleApp
 {
     public class PersonRepository
     {
-        private readonly List<Person> _persons = new();
+        private List<Person> _persons = new();
 
-        public void Add(Person person)
+        public void AddPerson(Person person)
         {
-            _persons.Add(person);
+            if (IsValid(person.PersonSurname, person.PersonName, person.PersonAge))
+            {
+                _persons.Add(person);
+            }
+            else
+                throw new Exception("A person's data cannot be null!");
         }
 
-        public void Remove(string id)
+        public static bool IsValid(string surname, string name, int age)
+        {
+            return !string.IsNullOrEmpty(surname)
+                  && !string.IsNullOrEmpty(name)
+                  && age > 0;
+        }
+
+        public void RemovePerson(string id)
         {
             var person = Get(id);
             _persons.Remove(person);
@@ -181,6 +151,11 @@ namespace OOPConsoleApp
         public IEnumerable<Person> GetAll()
         {
             return _persons;
+        }
+
+        public void ClearPersons()
+        {
+            _persons.Clear();
         }
     }
 }
