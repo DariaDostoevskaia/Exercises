@@ -56,8 +56,8 @@
                     Console.WriteLine("Игра окончена!");
                     return;
                 }
-                else
-                    SwitchPlayer();
+
+                SwitchPlayer();
             }
         }
 
