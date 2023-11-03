@@ -102,7 +102,7 @@
 
         private static bool IsValidMove(string move)
         {
-            if (!_board.ContainsKey(move))
+            if (_board.Any(cell => cell.Value == " "))
             {
                 return false;
             }
