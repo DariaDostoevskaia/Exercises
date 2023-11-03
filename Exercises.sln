@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exercises", "Exercises.csproj", "{7E96383C-DA2F-48F8-B678-6902EFB83B28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryConsoleApp", "DictionaryConsoleApp\DictionaryConsoleApp.csproj", "{F83B09C8-B011-40B1-995F-B352017A3BAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOPConsoleApp", "OOPConsoleApp\OOPConsoleApp.csproj", "{0976DA6A-D2C3-4DB7-B5AF-8925461F4AD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +17,10 @@ Global
 		{7E96383C-DA2F-48F8-B678-6902EFB83B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E96383C-DA2F-48F8-B678-6902EFB83B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E96383C-DA2F-48F8-B678-6902EFB83B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0976DA6A-D2C3-4DB7-B5AF-8925461F4AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0976DA6A-D2C3-4DB7-B5AF-8925461F4AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0976DA6A-D2C3-4DB7-B5AF-8925461F4AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0976DA6A-D2C3-4DB7-B5AF-8925461F4AD5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F83B09C8-B011-40B1-995F-B352017A3BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F83B09C8-B011-40B1-995F-B352017A3BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83B09C8-B011-40B1-995F-B352017A3BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
