@@ -102,15 +102,12 @@
 
         private static bool IsValidMove(string move)
         {
-            if (_board.Any(cell => cell.Value == " "))
-            {
+            if (!_board.ContainsKey(move))
                 return false;
-            }
 
-            if (!string.IsNullOrWhiteSpace(_board[move]))
-            {
+            if (_board[move].Any(c => !char.IsWhiteSpace(c)))
                 return false;
-            }
+
             return true;
         }
 
@@ -152,7 +149,7 @@
 
         private static bool IsDrawResult()
         {
-            foreach (KeyValuePair<string, string> cell in _board)
+            foreach (KeyValuePair<string, string> cell in _board) //All
             {
                 if (string.IsNullOrWhiteSpace(cell.Value))
                 {
