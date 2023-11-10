@@ -149,14 +149,7 @@
 
         private static bool IsDrawResult()
         {
-            foreach (KeyValuePair<string, string> cell in _board) //All
-            {
-                if (string.IsNullOrWhiteSpace(cell.Value))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return _board.All(cell => !string.IsNullOrWhiteSpace(cell.Value));
         }
 
         private static void SwitchPlayer()
